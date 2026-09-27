@@ -137,15 +137,14 @@ The codebase was searched and verified clean of these bugs. Any subsequent sessi
 
 ## 5. Open Items & Roadmap (Prioritized)
 
-### Priority 1: Navigation & Internal Link Updates (Stage 2)
-- **Status:** Multi-page routing is now live across `/`, `/about`, `/products`, `/services`, `/contact`, and `/wholesale`.
-- **Next Stage Task:** Update `<Header />`, mobile menu drawer, `<Footer />`, and in-page CTA links from old same-page hash anchors (e.g. `href="#about"`, `href="#products"`, `href="#contact"`) to real router `<Link>` / `<NavLink>` destinations (e.g. `to="/about"`, `to="/products"`, `to="/contact"`).
+### Priority 1: Navigation & Internal Link Updates
+- **Status:** Completed. All internal links sitewide (`<Header />`, mobile drawer, `<Footer />`, and in-page CTAs) now navigate cleanly between `/`, `/about`, `/products`, `/services`, `/contact`, and `/wholesale` via React Router. The Header About dropdown deep links (e.g. `/about#about`, `/about#mv`, `/about#team`) execute smooth scrolling via `<ScrollManager />`, and the Header active-link state uses `location.pathname`.
 
 ### Priority 2: Section Order & Grouping Reorganization
 - In the current layout, the **Official Documents & Licenses** section is embedded directly inside `CompanyInfo.jsx` right before `Team.jsx`. Once multi-page routing is implemented, official credentials and licenses should be grouped more logically under an About / Corporate Credentials page.
 
-### Priority 3: Hero Landing Page Visual Animation / Slideshow
-- The top Hero section (`src/components/Hero/Hero.jsx`) currently uses a static circular badge showing `hero-produce.jpg` alongside floating produce emojis. An animated entrance or rotating slideshow of hero imagery is planned but not yet implemented.
+### Priority 3: Hero Landing Page Full-Bleed Slideshow & Grounded Controls
+- **Status:** Completed. Replaced previous static circular-badge Hero with a full-bleed 4-slide rotating showcase (Bawang Holland, Chili Merah Besar, Brokoli, and Cold Storage Chillers). Features Ken Burns zoom/pan motion, smooth cross-fades, animated text panel entrance, grounded bottom-right frosted-glass control dock (with slide counter, progress bars, and circular prev/next buttons), persistent stats ribbon, pause on hover/interaction, and `prefers-reduced-motion` compliance. Reflows seamlessly onto tablet and mobile viewports.
 
 ### Priority 4: Wholesale Page Copy Fact-Check
 - `src/pages/Wholesale/Wholesale.jsx` uses safe, professional B2B copy. However, the client needs to review the exact procurement workflow steps and order minimums against their actual operational policies.
