@@ -1,65 +1,19 @@
 import React from 'react';
 import styles from './FeaturedProducts.module.css';
+import { productCategories, productCategorySubdivisions } from '../../data/products';
 
-const featuredData = {
-  hero: {
-    id: 'bawang_holland',
-    name: 'Bawang Holland',
-    category: 'alliums',
-    categoryLabel: 'Alliums',
-    img: '/images/products/bawang_holland/product-1.jpg',
-    alt: 'Bawang Holland yellow onions in wholesale mesh sacks',
-    packSize: '10 kg & 20 kg Mesh Sacks',
-    highlightBadge: '★ Commercial Anchor Item',
-    desc: 'High-grade imported yellow onions selected for uniform bulb density, golden skin, and prolonged warehouse shelf life. The foundational high-volume produce staple for hypermarkets, restaurant chains, and food distributors across Malaysia.',
-    priceRef: 'RM 3.20 / kg',
-  },
-  items: [
-    {
-      id: 'chili_merah_besar',
-      name: 'Chili Merah Besar',
-      category: 'chilies',
-      categoryLabel: 'Chilies',
-      img: '/images/products/chili_merah_besar/product-1.jpg',
-      alt: 'Fresh glossy red large chilies',
-      packSize: '5 kg & 10 kg Ventilated Box',
-      desc: 'Vibrant, hand-selected crimson red chilies delivering dependable sharpness for commercial food service.',
-      priceRef: 'RM 9.00 / kg',
-    },
-    {
-      id: 'brokoli',
-      name: 'Brokoli',
-      category: 'greens',
-      categoryLabel: 'Leafy Greens & Brassicas',
-      img: '/images/products/brokoli/product-1.jpeg',
-      alt: 'Fresh green Broccoli florets',
-      packSize: '8 kg – 10 kg Chilled Crate',
-      desc: 'Tightly beaded, dense green florets protected under unbroken cold-chain transport to ensure crisp texture.',
-      priceRef: 'RM 9.50 / kg',
-    },
-    {
-      id: 'carrot',
-      name: 'Carrot',
-      category: 'roots',
-      categoryLabel: 'Root Vegetables',
-      img: '/images/products/carrot/product-1.jpg',
-      alt: 'Clean graded carrots packed in export carton',
-      packSize: '10 kg Heavy-Duty Box',
-      desc: 'Evenly graded, sweet orange carrots thoroughly washed and boxed ready for kitchen prep and supermarket shelves.',
-      priceRef: 'RM 3.60 / kg',
-    },
-    {
-      id: 'nippis',
-      name: 'Nippis (Limau Nipis)',
-      category: 'fruits',
-      categoryLabel: 'Fruits',
-      img: '/images/products/nippis/product-1.jpeg',
-      alt: 'Fresh key limes in plastic crate',
-      packSize: '12 kg Ventilated Crate',
-      desc: 'Aromatic Southeast Asian key limes bursting with natural citrus oils and rich juice content.',
-      priceRef: 'RM 6.50 / kg',
-    },
-  ],
+// 5 representative produce categories for the bento grid
+const FEATURED_HERO_SLUG = 'bawang_holland';
+const FEATURED_ITEMS_SLUGS = [
+  'chili_merah_besar',
+  'brokoli',
+  'carrot',
+  'nippis',
+];
+
+const getCategoryLabel = (catId) => {
+  const match = productCategorySubdivisions.find((c) => c.id === catId);
+  return match ? match.label : catId;
 };
 
 const FeaturedProducts = () => {
@@ -77,7 +31,38 @@ const FeaturedProducts = () => {
     }
   };
 
-  const { hero, items } = featuredData;
+  // Pull hero item directly from productCategories
+  const heroProduct = productCategories.find((p) => p.slug === FEATURED_HERO_SLUG);
+  const hero = heroProduct
+    ? {
+        id: heroProduct.slug,
+        name: heroProduct.label,
+        category: heroProduct.category,
+        categoryLabel: getCategoryLabel(heroProduct.category),
+        img: `/images/products/${heroProduct.slug}/${heroProduct.images[0]}`,
+        alt: `${heroProduct.label} fresh produce`,
+        desc: heroProduct.description,
+        price: heroProduct.price,
+      }
+    : null;
+
+  // Pull subgrid items directly from productCategories
+  const items = FEATURED_ITEMS_SLUGS.map((slug) => {
+    const prod = productCategories.find((p) => p.slug === slug);
+    if (!prod) return null;
+    return {
+      id: prod.slug,
+      name: prod.label,
+      category: prod.category,
+      categoryLabel: getCategoryLabel(prod.category),
+      img: `/images/products/${prod.slug}/${prod.images[0]}`,
+      alt: `${prod.label} fresh produce`,
+      desc: prod.description,
+      price: prod.price,
+    };
+  }).filter(Boolean);
+
+  if (!hero) return null;
 
   return (
     <section id="featured-products" className={styles.section}>
@@ -95,24 +80,34 @@ const FeaturedProducts = () => {
             <div className={styles.heroImgWrap}>
               <img src={hero.img} alt={hero.alt} loading="lazy" />
               <div className={styles.heroImgOverlay} />
-              <span className={styles.heroBadge}>{hero.highlightBadge}</span>
             </div>
 
             <div className={styles.heroBody}>
               <div className={styles.heroMeta}>
                 <span className={styles.heroCategoryTag}>{hero.categoryLabel}</span>
-                <span className={styles.heroPrice}>{hero.priceRef}</span>
               </div>
 
               <h3 className={styles.heroTitle}>{hero.name}</h3>
               <p className={styles.heroDesc}>{hero.desc}</p>
 
-              <div className={styles.heroFooter}>
-                <div className={styles.packInfo}>
-                  <span className={styles.packLabel}>Pack / Case Size</span>
-                  <span className={styles.heroPackValue}>{hero.packSize}</span>
+              {/* Reference Price Badge Unit with [SAMPLE] badge & disclaimer */}
+              <div className={styles.heroPricePill}>
+                <div className={styles.priceHeaderRow}>
+                  <div className={styles.disclaimerGroup}>
+                    <span className={styles.heroDisclaimerDot} aria-hidden="true" />
+                    <span className={styles.heroDisclaimerText}>Reference Unit Price</span>
+                  </div>
+                  <span className={styles.heroSampleBadge}>Sample</span>
                 </div>
+                <div className={styles.priceValueRow}>
+                  <span className={styles.heroPriceValue}>{hero.price}</span>
+                </div>
+                <div className={styles.priceFooterRow}>
+                  <span className={styles.heroDisclaimerSub}>Confirm real-time rate at enquiry</span>
+                </div>
+              </div>
 
+              <div className={styles.heroFooter}>
                 <button
                   type="button"
                   className={styles.heroBtn}
@@ -138,17 +133,28 @@ const FeaturedProducts = () => {
                 <div className={styles.itemBody}>
                   <div className={styles.itemTopRow}>
                     <h4 className={styles.itemTitle}>{item.name}</h4>
-                    <span className={styles.itemPrice}>{item.priceRef}</span>
                   </div>
 
                   <p className={styles.itemDesc}>{item.desc}</p>
 
-                  <div className={styles.itemFooter}>
-                    <div className={styles.itemPack}>
-                      <span className={styles.packLabel}>Pack Size:</span>
-                      <span className={styles.itemPackValue}>{item.packSize}</span>
+                  {/* Reference Price Badge Unit with [SAMPLE] badge & disclaimer */}
+                  <div className={styles.pricePill}>
+                    <div className={styles.priceHeaderRow}>
+                      <div className={styles.disclaimerGroup}>
+                        <span className={styles.priceDisclaimerDot} aria-hidden="true" />
+                        <span className={styles.priceDisclaimerText}>Reference Unit Price</span>
+                      </div>
+                      <span className={styles.sampleBadge}>Sample</span>
                     </div>
+                    <div className={styles.priceValueRow}>
+                      <span className={styles.priceValue}>{item.price}</span>
+                    </div>
+                    <div className={styles.priceFooterRow}>
+                      <span className={styles.priceDisclaimerSub}>Confirm real-time rate at enquiry</span>
+                    </div>
+                  </div>
 
+                  <div className={styles.itemFooter}>
                     <button
                       type="button"
                       className={styles.itemBtn}
