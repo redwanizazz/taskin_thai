@@ -11,7 +11,6 @@ const Team = () => {
     <section id="team" className={styles.teamSection}>
       <div className={styles.container}>
         <div className={styles.sectionHead}>
-          <span className={styles.eyebrow}>06 — The people behind Taskin Thai</span>
           <h2 className={styles.title}>Our Team</h2>
         </div>
 

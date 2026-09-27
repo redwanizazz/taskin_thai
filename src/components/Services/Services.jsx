@@ -12,7 +12,6 @@ const Services = () => {
     <section id="services" className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`}>
-          <span className={styles.eyebrow}>09 — Why partners choose us</span>
           <h2 className={styles.h2}>Our Service</h2>
         </div>
         <div className={styles.servGrid}>

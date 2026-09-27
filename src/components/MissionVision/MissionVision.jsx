@@ -6,7 +6,6 @@ const MissionVision = () => {
     <section id="mv" className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`}>
-          <span className={styles.eyebrow}>03 / 04 — What drives us</span>
           <h2 className={styles.h2}>Mission & Vision</h2>
           <p className={styles.mutedP}>Guiding principles for a sustainable future in agriculture.</p>
         </div>

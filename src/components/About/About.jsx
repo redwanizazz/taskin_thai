@@ -6,7 +6,6 @@ const About = () => {
     <section id="about" className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`}>
-          <span className={styles.eyebrow}>01 — About the company</span>
           <h2 className={styles.h2}>About Us</h2>
         </div>
         <div className={styles.aboutGrid}>

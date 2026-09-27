@@ -71,7 +71,6 @@ const Contact = () => {
       <div className={styles.dotgrid}></div>
       <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`} data-reveal="fade-up">
-          <span className={styles.eyebrow}>10 — Let’s work together</span>
           <h2 className={styles.title}>Contact Us</h2>
           <p className={styles.desc}>
             Get in touch with us for wholesale enquiries, partnerships, or any questions about our premium Thai produce.

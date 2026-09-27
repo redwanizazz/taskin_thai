@@ -45,7 +45,6 @@ const Welcome = () => {
       <div className={styles.container}>
         <div className={styles.headerRow}>
           <div className={`${styles.sectionHead} reveal`}>
-            <span className={styles.eyebrow}>02 — Our Fresh Range</span>
             <h2 className={styles.h2}>Produce Showcase</h2>
             <p className={styles.desc}>
               Explore our comprehensive wholesale selection of fresh vegetables, aromatic roots, culinary herbs, and premium imported fruits.

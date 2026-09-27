@@ -7,7 +7,6 @@ const Directors = () => {
     <section id="directors" className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`}>
-          <span className={styles.eyebrow}>04 — A word from our directors</span>
           <h2 className={styles.h2}>Directors' Welcome Message</h2>
         </div>
         <div className={styles.directorsGrid}>

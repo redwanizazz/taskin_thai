@@ -11,7 +11,6 @@ const CompanyInfo = () => {
     <section id="company" className={`${styles.company} section`}>
       <div className={styles.container}>
         <div className="section-head center reveal">
-          <span className="eyebrow">05 &mdash; Corporate details</span>
           <h2>Company Information</h2>
         </div>
         

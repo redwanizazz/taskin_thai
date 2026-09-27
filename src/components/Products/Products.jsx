@@ -114,7 +114,6 @@ const Products = () => {
     <section id="products" className={`${styles.products} section`}>
       <div className={styles.container}>
         <div className="section-head center reveal">
-          <span className="eyebrow">08 &mdash; Farm to warehouse</span>
           <h2>Our Products</h2>
           <p>We source directly from premium producers to ensure top-tier quality and consistent supply for every category.</p>
         </div>

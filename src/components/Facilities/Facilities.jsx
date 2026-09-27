@@ -10,7 +10,6 @@ const Facilities = () => {
     <section id="facilities" className={`${styles.facilities} section`}>
       <div className={styles.container}>
         <div className="section-head center reveal">
-          <span className="eyebrow">07 &mdash; Built for freshness</span>
           <h2>Our Facilities</h2>
           <p>State-of-the-art storage and processing centers designed to maintain optimal conditions for every product category.</p>
         </div>
