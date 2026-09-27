@@ -1,0 +1,309 @@
+.orgChartSection {
+  padding: 40px 0;
+  width: 100%;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4E5E2A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 36px;
+  color: #2b3020;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+}
+
+.desc {
+  color: #555;
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 50px;
+}
+
+.filterBtn {
+  background: transparent;
+  border: 1px solid #c2c9b4;
+  color: #4a5433;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterBtn:hover {
+  background: #f4f6f0;
+}
+
+.filterBtn:focus-visible {
+  outline: 2px solid #6d7b4c;
+  outline-offset: 2px;
+}
+
+.activeFilter {
+  background: #3f4b27;
+  color: #ffffff;
+  border-color: #3f4b27;
+}
+
+.activeFilter:hover {
+  background: #3f4b27;
+}
+
+.chartArea {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* For scale wrapper */
+}
+
+.scaleWrap {
+  position: relative;
+  transform-origin: top center;
+  width: 100%;
+}
+
+.tree {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ln {
+  /* Used by JS for connector lines */
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  padding: 30px 0;
+  z-index: 1;
+}
+
+.levelTop {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.branchesLevel {
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 160px;
+}
+
+.head {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.sub {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Cards */
+.card {
+  width: 132px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  position: relative;
+  z-index: 2;
+  border: 2px solid transparent;
+}
+
+.smallCard {
+  width: 104px;
+  padding: 16px 8px;
+}
+
+.directorCard {
+  border-color: #6d7b4c;
+}
+
+.photoWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 2px solid #f0f0f0;
+}
+
+.smallCard .photoWrap {
+  width: 52px;
+  height: 52px;
+}
+
+.directorCard .photoWrap {
+  border-color: #6d7b4c;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2b3020;
+  margin: 0 0 4px 0;
+}
+
+.smallCard .name {
+  font-size: 12px;
+}
+
+.role {
+  font-size: 11px;
+  color: #777;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.smallCard .role {
+  font-size: 10px;
+}
+
+/* Interactivity */
+.dim {
+  opacity: 0.25;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.06);
+  box-shadow: 0 15px 30px -10px rgba(184, 87, 51, 0.3);
+  border-color: #B85733;
+  z-index: 10;
+}
+
+@keyframes pulseAnim {
+  0% { transform: scale(1); box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1); }
+  50% { transform: scale(1.08); box-shadow: 0 20px 40px -10px rgba(109,123,76,0.4); border-color: #6d7b4c; }
+  100% { transform: scale(1); box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1); }
+}
+
+.pulse {
+  animation: pulseAnim 0.8s ease;
+}
+
+.hintText {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .scaleWrap {
+    overflow: visible;
+    height: auto !important;
+  }
+  
+  .tree {
+    transform: none !important;
+    display: flex;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+  }
+  
+  .level {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 20px 0;
+  }
+  
+  .levelTop {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    padding-top: 0;
+  }
+  
+  .branchesLevel {
+    gap: 0;
+  }
+  
+  .branch {
+    width: 100%;
+    max-width: 320px;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(109,123,76,0.2);
+  }
+  
+  .branch:last-child {
+    border-bottom: none;
+  }
+  
+  .head {
+    margin-bottom: 0;
+  }
+  
+  .sub {
+    max-width: 100%;
+    margin-top: 18px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .overlay {
+    display: none;
+  }
+}

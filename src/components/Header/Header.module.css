@@ -1,0 +1,313 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(250, 248, 242, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s ease, padding 0.3s ease, background-color 0.3s ease;
+  padding: 1.25rem 0;
+}
+
+.scrolled {
+  box-shadow: 0 4px 24px rgba(20, 22, 14, 0.08);
+  padding: 0.8rem 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #14160e;
+  flex-shrink: 0;
+}
+
+.brandBadge {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.brandBadge img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.pulsingRing {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid #e86a33;
+  border-radius: 50%;
+  animation: pulse 2.5s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brandText span:first-child {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #14160e;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.brandText span:last-child {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4a5d23;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.navlinks a {
+  text-decoration: none;
+  color: #444; /* ink-soft */
+  font-size: 0.88rem;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.2s ease;
+  padding: 8px 0;
+  white-space: nowrap;
+}
+
+.navlinks a:hover {
+  color: #e86a33;
+}
+
+.navlinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #e86a33;
+  transition: width 0.3s ease;
+}
+
+.navlinks a:hover::after {
+  width: 100%;
+}
+
+.navcta {
+  background-color: #313f17; /* olive-dark */
+  color: #ffffff !important;
+  padding: 10px 22px !important;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important;
+  box-shadow: 0 4px 14px rgba(49, 63, 23, 0.2);
+  white-space: nowrap;
+  font-weight: 700 !important;
+  font-size: 0.84rem !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navcta::after {
+  display: none !important;
+}
+
+.navcta:hover {
+  background-color: #e86a33; /* rust */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 106, 51, 0.3);
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+}
+
+.burger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background-color: #14160e;
+  margin: 6px auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 2px;
+}
+
+.burger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 1260px) and (min-width: 1081px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brandBadge {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brandBadge img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brandText span:first-child {
+    font-size: 0.92rem;
+  }
+
+  .brandText span:last-child {
+    font-size: 0.68rem;
+  }
+
+  .navlinks {
+    gap: 12px;
+  }
+
+  .navlinks a {
+    font-size: 0.82rem;
+  }
+
+  .navcta {
+    padding: 8px 16px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .burger {
+    display: block;
+  }
+
+  .navlinks {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #faf8f2;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path 0.4s ease-in-out;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .navlinks.mobileOpen {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .navlinks li {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .navlinks li:last-child {
+    border-bottom: none;
+    padding: 20px 5%;
+  }
+
+  .navlinks a {
+    display: block;
+    padding: 16px 5%;
+    width: 100%;
+    white-space: normal;
+  }
+
+  .navlinks a::after {
+    display: none;
+  }
+
+  .navcta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 28px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .brandText span:last-child {
+    display: none;
+  }
+  
+  .brandBadge {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .brandBadge img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brandText span:first-child {
+    font-size: 0.95rem;
+  }
+}

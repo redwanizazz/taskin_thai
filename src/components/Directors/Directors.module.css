@@ -1,0 +1,116 @@
+.section {
+  background-color: var(--color-cream, #F7F5F0);
+  padding: 8rem 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-rust, #C05621);
+  margin-bottom: 1rem;
+}
+
+.h2 {
+  font-family: var(--font-serif, serif);
+  font-size: 3rem;
+  color: var(--color-text, #1A202C);
+  margin: 0;
+}
+
+.directorsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.welcomeCard {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+}
+
+.profile {
+  text-align: center;
+}
+
+.imageWrapper {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text, #1A202C);
+  margin: 0 0 0.25rem 0;
+}
+
+.role {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.9375rem;
+  color: var(--color-rust, #C05621);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.welcomeCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.message {
+  font-family: 'Fraunces', var(--font-serif, serif);
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-text-muted, #4A5568);
+  margin: 0 0 1.5rem 0;
+}
+
+.message:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .welcomeCard {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageWrapper {
+    max-width: 220px;
+    margin: 0 auto 1.5rem auto;
+  }
+}

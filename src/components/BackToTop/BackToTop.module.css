@@ -1,0 +1,38 @@
+.backToTop {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #e86a33; /* rust */
+  color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 900;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(232, 106, 51, 0.3);
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.backToTop:hover {
+  transform: translateY(-4px);
+  background-color: #d15622;
+  box-shadow: 0 6px 20px rgba(232, 106, 51, 0.4);
+}
+
+.backToTop:focus-visible {
+  outline: 3px solid #313f17;
+  outline-offset: 2px;
+}

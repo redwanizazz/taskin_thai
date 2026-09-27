@@ -1,0 +1,72 @@
+.teamSection {
+  background-color: #EFEADB;
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4E5E2A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 42px;
+  color: #2b3020;
+  margin: 0;
+  font-weight: 700;
+}
+
+.teamPhotos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 70px;
+  position: relative;
+  z-index: 1;
+}
+
+.teamPhoto {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  box-shadow: 0 20px 45px -20px rgba(63, 75, 39, 0.35);
+  position: relative;
+  cursor: pointer;
+}
+
+.teamPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.teamPhoto:hover img {
+  transform: scale(1.08);
+}
+
+@media (max-width: 900px) {
+  .teamPhotos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .teamPhotos {
+    grid-template-columns: 1fr;
+  }
+}

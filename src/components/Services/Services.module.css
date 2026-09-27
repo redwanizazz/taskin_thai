@@ -1,0 +1,133 @@
+.section {
+  background-color: var(--color-white, #FFFFFF);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-rust, #C05621);
+  margin-bottom: 1rem;
+}
+
+.h2 {
+  font-family: var(--font-serif, serif);
+  font-size: 3rem;
+  color: var(--color-text, #1A202C);
+  margin: 0;
+}
+
+.servGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.serviceCard {
+  background-color: var(--color-cream, #F7F5F0);
+  border-radius: 8px;
+  padding: 2rem;
+  border-top: 4px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.borderRust {
+  border-top-color: var(--color-rust, #C05621);
+}
+
+.borderOlive {
+  border-top-color: var(--color-olive-dark, #2C3419);
+}
+
+.borderMango {
+  border-top-color: var(--color-mango, #F6AD55);
+}
+
+.borderOliveLight {
+  border-top-color: var(--color-olive-light, #6B7C3E);
+}
+
+.tiltHover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.num {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.h4 {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text, #1A202C);
+  margin: 0 0 1rem 0;
+}
+
+.desc {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-muted, #4A5568);
+  margin: 0;
+}
+
+.leafPattern {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 8c14 8 20 22 14 36-8 14-24 18-32 8-8-10-4-26 8-36 3-2.6 6.6-5.6 10-8z' fill='%235A6B39'/%3E%3C/svg%3E");
+  background-size: cover;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.dotgrid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background-image: radial-gradient(var(--color-olive-light, #6B7C3E) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .servGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .servGrid {
+    grid-template-columns: 1fr;
+  }
+}
