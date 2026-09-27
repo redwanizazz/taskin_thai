@@ -69,7 +69,7 @@ const Contact = () => {
   return (
     <section id="contact" className={styles.contactSection}>
       <div className={styles.dotgrid}></div>
-      <div className="container">
+      <div className={styles.container}>
         <div className={`${styles.sectionHead} reveal`} data-reveal="fade-up">
           <span className={styles.eyebrow}>10 — Let’s work together</span>
           <h2 className={styles.title}>Contact Us</h2>
@@ -138,14 +138,16 @@ const Contact = () => {
               </div>
             </div>
 
-            <iframe 
-              className={styles.mapIframe}
-              src="https://www.google.com/maps?q=No.21,+Jalan+Indah+10B,+Taman+Perindustrian+Selayang+Indah,+68100+Batu+Caves,+Selangor&output=embed" 
-              width="100%" 
-              height="220px" 
-              title="Taskin Thai location map"
-              loading="lazy"
-            ></iframe>
+            <div className={styles.mapWrap}>
+              <iframe 
+                className={styles.mapIframe}
+                src="https://www.google.com/maps?q=No.21,+Jalan+Indah+10B,+Taman+Perindustrian+Selayang+Indah,+68100+Batu+Caves,+Selangor&output=embed" 
+                width="100%" 
+                height="220px" 
+                title="Taskin Thai location map"
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
 
           {/* Right Column */}

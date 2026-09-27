@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './WaveDivider.module.css';
 
-const WaveDivider = ({ fill = '#faf8f2', variant = 'down' }) => {
+const WaveDivider = ({ fill = '#faf8f2', variant = 'down', bg }) => {
   const isUp = variant === 'up';
   
   return (
-    <div className={styles.waveDivider}>
+    <div 
+      className={styles.waveDivider}
+      style={bg ? { backgroundColor: bg } : undefined}
+    >
       <svg 
         viewBox="0 0 1200 60" 
         preserveAspectRatio="none" 

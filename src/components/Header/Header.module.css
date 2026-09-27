@@ -140,6 +140,14 @@
   width: 100%;
 }
 
+.activeLink {
+  color: #e86a33 !important;
+}
+
+.activeLink::after {
+  width: 100% !important;
+}
+
 .navcta {
   background-color: #313f17; /* olive-dark */
   color: #ffffff !important;
@@ -198,44 +206,44 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
-@media (max-width: 1260px) and (min-width: 1081px) {
+@media (max-width: 1340px) and (min-width: 1081px) {
   .container {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 
   .brand {
-    gap: 10px;
+    gap: 8px;
   }
 
   .brandBadge {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
   }
 
   .brandBadge img {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
   }
 
   .brandText span:first-child {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
   }
 
   .brandText span:last-child {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
   }
 
   .navlinks {
-    gap: 12px;
+    gap: 10px;
   }
 
   .navlinks a {
-    font-size: 0.82rem;
+    font-size: 0.79rem;
   }
 
   .navcta {
-    padding: 8px 16px !important;
-    font-size: 0.8rem !important;
+    padding: 7px 14px !important;
+    font-size: 0.78rem !important;
   }
 }
 
