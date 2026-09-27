@@ -14,12 +14,14 @@ const Wholesale = () => {
     const prevOgDesc = ogDescMeta?.getAttribute('content') || '';
     const ogUrlMeta = document.querySelector('meta[property="og:url"]');
     const prevOgUrl = ogUrlMeta?.getAttribute('content') || '';
+    const ogImageMeta = document.querySelector('meta[property="og:image"]');
+    const prevOgImage = ogImageMeta?.getAttribute('content') || '';
 
     document.title = 'Wholesale Produce Supply & Commercial Distribution | Taskin Thai Malaysia';
     if (descMeta) {
       descMeta.setAttribute(
         'content',
-        'Direct farm-sourced wholesale fresh vegetables and fruits for commercial supply across Malaysia. Scheduled delivery, cold-chain assurance, and custom bulk packaging from Batu Caves, Selangor.'
+        'B2B fresh produce and commercial wholesale supply by Taskin Thai Vegetables & Fruits Sdn Bhd, based in Batu Caves, Selangor. Supplying fresh vegetables and fruits to commercial and retail partners across Malaysia.'
       );
     }
     if (ogTitleMeta) {
@@ -31,11 +33,14 @@ const Wholesale = () => {
     if (ogDescMeta) {
       ogDescMeta.setAttribute(
         'content',
-        'Direct farm-sourced wholesale fresh vegetables and fruits for commercial supply across Malaysia. Scheduled delivery, cold-chain assurance, and custom bulk packaging from Batu Caves, Selangor.'
+        'B2B fresh produce and commercial wholesale supply by Taskin Thai Vegetables & Fruits Sdn Bhd, based in Batu Caves, Selangor. Supplying fresh vegetables and fruits to commercial and retail partners across Malaysia.'
       );
     }
     if (ogUrlMeta) {
-      ogUrlMeta.setAttribute('content', 'https://www.taskinthai.com/wholesale');
+      ogUrlMeta.setAttribute('content', 'https://taskin-thai.vercel.app/wholesale');
+    }
+    if (ogImageMeta) {
+      ogImageMeta.setAttribute('content', 'https://taskin-thai.vercel.app/images/hero-produce.jpg');
     }
 
     return () => {
@@ -44,6 +49,7 @@ const Wholesale = () => {
       if (ogTitleMeta && prevOgTitle) ogTitleMeta.setAttribute('content', prevOgTitle);
       if (ogDescMeta && prevOgDesc) ogDescMeta.setAttribute('content', prevOgDesc);
       if (ogUrlMeta && prevOgUrl) ogUrlMeta.setAttribute('content', prevOgUrl);
+      if (ogImageMeta && prevOgImage) ogImageMeta.setAttribute('content', prevOgImage);
     };
   }, []);
 

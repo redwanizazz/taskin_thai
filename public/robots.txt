@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.taskinthai.com/sitemap.xml
+Sitemap: https://taskin-thai.vercel.app/sitemap.xml

@@ -8,7 +8,7 @@ const Facilities = () => {
 
   return (
     <section id="facilities" className={`${styles.facilities} section`}>
-      <div className="container">
+      <div className={styles.container}>
         <div className="section-head center reveal">
           <span className="eyebrow">07 &mdash; Built for freshness</span>
           <h2>Our Facilities</h2>
