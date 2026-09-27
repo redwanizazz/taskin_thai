@@ -1,33 +1,133 @@
 .products {
   background-color: var(--cream, #f9f8f4);
-  padding: 80px 0;
+  padding: 90px 0;
+  position: relative;
 }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Category Filter Section */
+.filterSection {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 980px;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white, #ffffff);
+  border: 1px solid rgba(63, 75, 39, 0.18);
+  color: #4E5E2A;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(63, 75, 39, 0.04);
+}
+
+.filterPill:hover {
+  background: rgba(63, 75, 39, 0.08);
+  color: var(--olive-dark, #3F4B27);
+  border-color: rgba(63, 75, 39, 0.35);
+  transform: translateY(-2px);
+}
+
+.filterPill.activePill {
+  background: var(--olive-dark, #3F4B27);
+  color: #ffffff;
+  border-color: var(--olive-dark, #3F4B27);
+  box-shadow: 0 4px 14px rgba(63, 75, 39, 0.25);
+  transform: translateY(-1px);
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(63, 75, 39, 0.08);
+  color: #4E5E2A;
+  transition: all 0.2s ease;
+}
+
+.activePill .pillBadge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.resultsCount {
+  font-size: 0.88rem;
+  color: #4E5E2A;
+  font-weight: 500;
+}
+
+.resultsCount strong {
+  color: var(--olive-dark, #3F4B27);
+  font-weight: 700;
+}
+
+/* Products Grid */
 .prodGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 24px;
   position: relative;
   z-index: 1;
 }
+
 .prodCard {
   background: var(--white, #ffffff);
-  border-radius: var(--radius-md, 8px);
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(63, 75, 39, 0.08);
   cursor: pointer;
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
 .prodCard:hover {
   transform: translateY(-6px);
-  box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,0.1));
+  box-shadow: 0 14px 30px -10px rgba(63, 75, 39, 0.2);
+  border-color: rgba(63, 75, 39, 0.18);
 }
+
 .prodThumb {
   aspect-ratio: 1;
   overflow: hidden;
   background: var(--cream-2, #f0efe9);
   position: relative;
+  width: 100%;
 }
+
 .prodThumb img {
   width: 100%;
   height: 100%;
@@ -37,13 +137,16 @@
   opacity: 0;
   transition: opacity 0.7s ease, transform 0.4s ease;
 }
+
 .prodThumb img.active {
   opacity: 1;
   z-index: 1;
 }
+
 .prodCard:hover .active {
   transform: scale(1.08);
 }
+
 .dots {
   position: absolute;
   left: 0;
@@ -55,6 +158,7 @@
   gap: 5px;
   pointer-events: none;
 }
+
 .dot {
   width: 5px;
   height: 5px;
@@ -63,29 +167,184 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
   transition: background 0.3s ease, transform 0.3s ease;
 }
+
 .dotActive {
   background: var(--white, #ffffff);
   transform: scale(1.3);
 }
+
+/* Card Label & Reference Price Layout */
 .prodLabel {
-  padding: 12px 14px;
+  padding: 16px 18px 18px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--white, #ffffff);
+  border-top: 1px solid rgba(63, 75, 39, 0.05);
+  box-sizing: border-box;
 }
-.prodLabel h4,
-.prodLabel h3 {
+
+.prodTitleRow {
+  margin-bottom: 10px;
+}
+
+.prodTitleRow h3 {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
   font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--ink, #1a1a1a);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--ink, #25281E);
   text-transform: none;
+  letter-spacing: -0.01em;
 }
+
+/* Unified Price Badge Unit with Integrated Disclaimer */
+.pricePill {
+  background: rgba(63, 75, 39, 0.05);
+  border: 1px solid rgba(63, 75, 39, 0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priceHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.disclaimerGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.priceDisclaimerDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #C1502E;
+  flex-shrink: 0;
+}
+
+.priceDisclaimerText {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #4E5E2A;
+  line-height: 1.2;
+}
+
+.sampleBadge {
+  font-size: 0.60rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(193, 80, 46, 0.12);
+  color: #9E6000;
+  border: 1px solid rgba(193, 80, 46, 0.22);
+  border-radius: 5px;
+  padding: 1.5px 5px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.priceValueRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin-top: 1px;
+}
+
+.priceValue {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--olive-dark, #3F4B27);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.priceFooterRow {
+  margin-top: 2px;
+}
+
+.priceDisclaimerSub {
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: #565A48;
+  display: block;
+  line-height: 1.2;
+}
+
+/* Responsive Breakpoints */
 @media (max-width: 1000px) {
   .prodGrid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
 }
+
 @media (max-width: 600px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .filterBar {
+    gap: 6px;
+  }
+
+  .filterPill {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  .pillBadge {
+    font-size: 0.68rem;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+  }
+
   .prodGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .prodLabel {
+    padding: 12px 14px 14px;
+  }
+
+  .prodTitleRow h3 {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+
+  .pricePill {
+    padding: 6px 8px;
+  }
+
+  .priceDisclaimerText {
+    font-size: 0.55rem;
+  }
+
+  .priceValue {
+    font-size: 0.84rem;
+  }
+
+  .sampleBadge {
+    font-size: 0.54rem;
+    padding: 1px 4px;
+  }
+
+  .priceDisclaimerSub {
+    font-size: 0.52rem;
   }
 }

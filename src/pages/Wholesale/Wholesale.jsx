@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Wholesale.module.css';
 import WaveDivider from '../../components/WaveDivider/WaveDivider.jsx';
 
 const Wholesale = () => {
+  useEffect(() => {
+    const prevTitle = document.title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    const prevDesc = descMeta?.getAttribute('content') || '';
+    const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    const prevOgTitle = ogTitleMeta?.getAttribute('content') || '';
+    const ogDescMeta = document.querySelector('meta[property="og:description"]');
+    const prevOgDesc = ogDescMeta?.getAttribute('content') || '';
+    const ogUrlMeta = document.querySelector('meta[property="og:url"]');
+    const prevOgUrl = ogUrlMeta?.getAttribute('content') || '';
+
+    document.title = 'Wholesale Produce Supply & Commercial Distribution | Taskin Thai Malaysia';
+    if (descMeta) {
+      descMeta.setAttribute(
+        'content',
+        'Direct farm-sourced wholesale fresh vegetables and fruits for commercial supply across Malaysia. Scheduled delivery, cold-chain assurance, and custom bulk packaging from Batu Caves, Selangor.'
+      );
+    }
+    if (ogTitleMeta) {
+      ogTitleMeta.setAttribute(
+        'content',
+        'Wholesale Produce Supply & Commercial Distribution | Taskin Thai Malaysia'
+      );
+    }
+    if (ogDescMeta) {
+      ogDescMeta.setAttribute(
+        'content',
+        'Direct farm-sourced wholesale fresh vegetables and fruits for commercial supply across Malaysia. Scheduled delivery, cold-chain assurance, and custom bulk packaging from Batu Caves, Selangor.'
+      );
+    }
+    if (ogUrlMeta) {
+      ogUrlMeta.setAttribute('content', 'https://www.taskinthai.com/wholesale');
+    }
+
+    return () => {
+      document.title = prevTitle;
+      if (descMeta && prevDesc) descMeta.setAttribute('content', prevDesc);
+      if (ogTitleMeta && prevOgTitle) ogTitleMeta.setAttribute('content', prevOgTitle);
+      if (ogDescMeta && prevOgDesc) ogDescMeta.setAttribute('content', prevOgDesc);
+      if (ogUrlMeta && prevOgUrl) ogUrlMeta.setAttribute('content', prevOgUrl);
+    };
+  }, []);
+
   // Real factual stats from Taskin Thai's company and facility data
   const wholesaleStats = [
     { value: '26+', label: 'Produce Categories' },
