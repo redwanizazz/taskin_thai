@@ -48,8 +48,9 @@ const Header = () => {
         <nav>
           <ul className={`${styles.navlinks} ${isMobileMenuOpen ? styles.mobileOpen : ''}`}>
             <li><a href="#about" onClick={closeMenu}>About Us</a></li>
-            <li><a href="#welcome" onClick={closeMenu}>Welcome</a></li>
+            <li><a href="#welcome" onClick={closeMenu}>Showcase</a></li>
             <li><a href="#mv" onClick={closeMenu}>Mission/Vision</a></li>
+            <li><a href="#directors" onClick={closeMenu}>Directors</a></li>
             <li><a href="#company" onClick={closeMenu}>Company Info</a></li>
             <li><a href="#team" onClick={closeMenu}>Team</a></li>
             <li><a href="#facilities" onClick={closeMenu}>Facilities</a></li>
