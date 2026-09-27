@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Hero.module.css';
 import { useCountUp } from '../../hooks/useScrollReveal';
 
@@ -28,8 +29,8 @@ const Hero = () => {
           </p>
           
           <div className={styles.heroCtas}>
-            <a href="#contact" className={styles.btnPrimary}>Request a Quotation</a>
-            <a href="#products" className={styles.btnOutline}>Browse Our Produce</a>
+            <Link to="/contact" className={styles.btnPrimary}>Request a Quotation</Link>
+            <Link to="/products" className={styles.btnOutline}>Browse Our Produce</Link>
           </div>
           
           <div className={styles.heroStats}>

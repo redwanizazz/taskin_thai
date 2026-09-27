@@ -70,7 +70,7 @@ const Wholesale = () => {
       heading: 'Thai Import & Local Produce Sourcing',
       desc: 'Consistent wholesale supply of Thai and domestic vegetables, chilis, leafy greens, and root crops sourced directly from vetted agricultural growers.',
       linkText: 'Explore 26+ Produce Categories →',
-      linkTo: '/#products',
+      linkTo: '/products',
     },
     {
       img: '/images/facility-5.jpg',
@@ -79,7 +79,7 @@ const Wholesale = () => {
       heading: 'Guni Bags, Crates & Custom Bulk Packs',
       desc: 'Tailored commercial packaging options from traditional 10kg/20kg guni sacks to heavy-duty ventilated crates and bulk cartons configured to your operations.',
       linkText: 'Inquire About Packaging →',
-      linkTo: '/#contact',
+      linkTo: '/contact',
     },
     {
       img: '/images/facility-3.jpg',
@@ -88,7 +88,7 @@ const Wholesale = () => {
       heading: '24/7 Cold Storage & SSM Compliance',
       desc: 'Round-the-clock temperature-regulated chiller rooms at our Selayang Indah HQ, backed by SSM incorporation (1485173-X) and MPS municipal licensing.',
       linkText: 'View Corporate Credentials →',
-      linkTo: '/#company',
+      linkTo: '/about#company',
     },
     {
       img: '/images/facility-6.jpg',
@@ -97,7 +97,7 @@ const Wholesale = () => {
       heading: 'Daily Deliveries via Dedicated Lorry Fleet',
       desc: 'Scheduled daily morning deliveries across Klang Valley, Selangor commercial hubs, and inter-state distribution corridors operated by our dedicated transport drivers.',
       linkText: 'Arrange Delivery Schedule →',
-      linkTo: '/#contact',
+      linkTo: '/contact',
     },
   ];
 
@@ -140,10 +140,10 @@ const Wholesale = () => {
               Taskin Thai Vegetables & Fruits Sdn. Bhd. partners with supermarket chains, wholesale wet markets, commercial kitchens, and catering providers. We deliver harvest-fresh Thai imports and local vegetables in high volumes with verified cold-chain integrity and daily scheduled dispatch.
             </p>
             <div className={styles.heroCtas}>
-              <Link to="/#contact" className={styles.btnPrimary}>
+              <Link to="/contact" className={styles.btnPrimary}>
                 Start an Enquiry
               </Link>
-              <Link to="/#products" className={styles.btnOutline}>
+              <Link to="/products" className={styles.btnOutline}>
                 Review Our Range
               </Link>
             </div>
@@ -266,7 +266,7 @@ const Wholesale = () => {
             </div>
 
             <div className={styles.ctaActions}>
-              <Link to="/#contact" className={styles.ctaSubmitBtn}>
+              <Link to="/contact" className={styles.ctaSubmitBtn}>
                 Submit Wholesale Enquiry
               </Link>
               <a href="tel:0361283831" className={styles.ctaCallBtn}>

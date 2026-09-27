@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './About.module.css';
 
 const About = () => {
@@ -16,7 +17,7 @@ const About = () => {
             <p className={styles.paragraph}>
               We specialize in wholesaling, distributing, exporting, and importing a wide range of fruits, vegetables, and other food products. By focusing on excellence, consistency, and a passion for healthy living, we have quickly become a trusted name in the industry.
             </p>
-            <a href="#contact" className={styles.button}>Partner With Us</a>
+            <Link to="/contact" className={styles.button}>Partner With Us</Link>
           </div>
           <div className={`${styles.aboutCard} reveal`}>
             <div className={styles.capabilityItem}>

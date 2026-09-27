@@ -1,24 +1,9 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleNavAnchor = (e, hash) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      const el = document.querySelector(hash);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', hash);
-      }
-    } else {
-      navigate(`/${hash}`);
-    }
-  };
 
   return (
     <footer className={styles.footer}>
@@ -35,11 +20,11 @@ const Footer = () => {
           <div className={styles.quickLinks}>
             <h4 className={styles.heading}>Quick Links</h4>
             <ul className={styles.linkList}>
-              <li><a href="#about" onClick={(e) => handleNavAnchor(e, '#about')}>About Us</a></li>
+              <li><Link to="/about">About Us</Link></li>
               <li><Link to="/wholesale">Wholesale Supply</Link></li>
-              <li><a href="#products" onClick={(e) => handleNavAnchor(e, '#products')}>Our Products</a></li>
-              <li><a href="#team" onClick={(e) => handleNavAnchor(e, '#team')}>Our Team</a></li>
-              <li><a href="#contact" onClick={(e) => handleNavAnchor(e, '#contact')}>Contact Us</a></li>
+              <li><Link to="/products">Our Products</Link></li>
+              <li><Link to="/about#team">Our Team</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
             </ul>
           </div>
           <div className={styles.contact}>

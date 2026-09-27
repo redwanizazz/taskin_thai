@@ -179,7 +179,7 @@ const OrgChart = () => {
     return dept !== activeFilter;
   };
 
-  const renderCard = (member, isSmall = false, isDirector = false, ref = null) => {
+  const renderCard = (member, isSmall = false, isDirector = false, ref = null, key = undefined) => {
     if (!member) return null;
     const dimClass = isDimmed(member.dept) ? styles.dim : '';
     const sizeClass = isSmall ? styles.smallCard : '';
@@ -187,6 +187,7 @@ const OrgChart = () => {
 
     return (
       <div 
+        key={key || member.name}
         ref={ref} 
         className={`${styles.card} ${dimClass} ${sizeClass} ${typeClass}`}
       >
@@ -231,7 +232,7 @@ const OrgChart = () => {
               <div className={styles.level}>
                 <div className={styles.levelTop}>
                   {orgChartData.directors.map((dir, i) => (
-                    renderCard(dir, false, true, el => directorRefs.current[i] = el)
+                    renderCard(dir, false, true, el => directorRefs.current[i] = el, dir.name || i)
                   ))}
                 </div>
               </div>
@@ -241,7 +242,7 @@ const OrgChart = () => {
             {orgChartData.seniorManager && (
               <div className={styles.level}>
                 <div className={styles.levelTop}>
-                  {renderCard(orgChartData.seniorManager, false, false, seniorMgrRef)}
+                  {renderCard(orgChartData.seniorManager, false, false, seniorMgrRef, 'senior-manager')}
                 </div>
               </div>
             )}
@@ -250,15 +251,15 @@ const OrgChart = () => {
             {orgChartData.branches && orgChartData.branches.length > 0 && (
               <div className={`${styles.level} ${styles.branchesLevel}`}>
                 {orgChartData.branches.map((branch, i) => (
-                  <div key={i} className={styles.branch}>
+                  <div key={branch.head?.name || i} className={styles.branch}>
                     <div className={styles.head}>
-                      {renderCard(branch.head, false, false, el => branchHeadRefs.current[i] = el)}
+                      {renderCard(branch.head, false, false, el => branchHeadRefs.current[i] = el, branch.head?.name || i)}
                     </div>
                     {branch.members && branch.members.length > 0 && (
                       <div className={styles.sub}>
                         {branch.members.map((member, j) => {
                           if (!branchMemberRefs.current[i]) branchMemberRefs.current[i] = [];
-                          return renderCard(member, true, false, el => branchMemberRefs.current[i][j] = el)
+                          return renderCard(member, true, false, el => branchMemberRefs.current[i][j] = el, member.name || `${i}-${j}`);
                         })}
                       </div>
                     )}

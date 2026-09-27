@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 
 const ABOUT_ITEMS = [
@@ -15,10 +15,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); // 'about' | null
-  const [activeSection, setActiveSection] = useState('');
-
   const location = useLocation();
-  const navigate = useNavigate();
 
   const aboutTriggerRef = useRef(null);
   const aboutMenuRef = useRef(null);
@@ -35,41 +32,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 2. Active section tracking on Home route (/)
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setActiveSection('');
-      return;
-    }
-
-    const sectionIds = [
-      'about', 'mv', 'directors', 
-      'company', 'team', 'facilities', 'products', 
-      'services', 'contact'
-    ];
-
-    const handleIntersect = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, {
-      rootMargin: '-20% 0px -55% 0px',
-      threshold: 0.05,
-    });
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [location.pathname]);
-
-  // 3. Click outside handler to close open desktop dropdowns
+  // 2. Click outside handler to close open desktop dropdowns
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (headerRef.current && !headerRef.current.contains(e.target)) {
@@ -118,17 +81,14 @@ const Header = () => {
     }
   };
 
-  const handleNavAnchor = (e, hash) => {
+  const handleAboutItemClick = (hash) => {
     closeAll();
-    if (location.pathname === '/') {
-      e.preventDefault();
-      const el = document.querySelector(hash);
+    if (location.pathname === '/about') {
+      const targetId = hash.replace(/^#/, '');
+      const el = document.getElementById(targetId);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        window.history.pushState(null, '', hash);
       }
-    } else {
-      navigate(`/${hash}`);
     }
   };
 
@@ -171,15 +131,8 @@ const Header = () => {
     }
   };
 
-  // Active status checks
-  const isAboutActive = location.pathname === '/' && [
-    'about', 'mv', 'directors', 'company', 'team', 'facilities'
-  ].includes(activeSection);
-
-  const isProductsActive = location.pathname === '/' && activeSection === 'products';
-
-  const isServicesActive = location.pathname === '/' && activeSection === 'services';
-  const isWholesaleActive = location.pathname === '/wholesale';
+  // Active status checks based on current route pathname
+  const isAboutActive = location.pathname === '/about';
 
   return (
     <header ref={headerRef} className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -208,7 +161,7 @@ const Header = () => {
 
         <nav>
           <ul className={`${styles.navlinks} ${isMobileMenuOpen ? styles.mobileOpen : ''}`}>
-            {/* 1. ABOUT DROPDOWN */}
+            {/* 1. ABOUT DROPDOWN (Deep links into /about) */}
             <li 
               className={`${styles.dropdownParent} ${openDropdown === 'about' ? styles.dropdownOpen : ''}`}
               onMouseEnter={() => handleMouseEnter('about')}
@@ -233,63 +186,66 @@ const Header = () => {
                 className={`${styles.dropdownMenu} ${openDropdown === 'about' ? styles.mobileDropdownOpen : ''}`}
                 role="menu"
               >
-                {ABOUT_ITEMS.map((item, idx) => (
-                  <a
-                    key={item.hash}
-                    href={item.hash}
-                    role="menuitem"
-                    className={`${styles.dropdownItem} ${activeSection === item.hash.replace('#', '') ? styles.dropdownItemActive : ''}`}
-                    onClick={(e) => handleNavAnchor(e, item.hash)}
-                    onKeyDown={(e) => handleItemKeyDown(e, 'about', idx, ABOUT_ITEMS.length, aboutTriggerRef, aboutMenuRef)}
-                  >
-                    <span>{item.label}</span>
-                  </a>
-                ))}
+                {ABOUT_ITEMS.map((item, idx) => {
+                  const isItemActive = isAboutActive && location.hash === item.hash;
+                  return (
+                    <Link
+                      key={item.hash}
+                      to={`/about${item.hash}`}
+                      role="menuitem"
+                      className={`${styles.dropdownItem} ${isItemActive ? styles.dropdownItemActive : ''}`}
+                      onClick={() => handleAboutItemClick(item.hash)}
+                      onKeyDown={(e) => handleItemKeyDown(e, 'about', idx, ABOUT_ITEMS.length, aboutTriggerRef, aboutMenuRef)}
+                    >
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
               </div>
             </li>
 
-            {/* 2. PRODUCTS DIRECT ANCHOR LINK */}
+            {/* 2. PRODUCTS DIRECT ROUTE LINK */}
             <li>
-              <a 
-                href="#products" 
-                className={`${styles.navItem} ${isProductsActive ? styles.activeLink : ''}`}
-                onClick={(e) => handleNavAnchor(e, '#products')}
+              <NavLink 
+                to="/products" 
+                className={({ isActive }) => `${styles.navItem} ${isActive ? styles.activeLink : ''}`}
+                onClick={closeAll}
               >
                 Products
-              </a>
+              </NavLink>
             </li>
 
             {/* 3. WHOLESALE DIRECT ROUTE LINK */}
             <li>
               <NavLink 
                 to="/wholesale" 
-                className={({ isActive }) => `${styles.navItem} ${isActive || isWholesaleActive ? styles.activeLink : ''}`}
+                className={({ isActive }) => `${styles.navItem} ${isActive ? styles.activeLink : ''}`}
                 onClick={closeAll}
               >
                 Wholesale
               </NavLink>
             </li>
 
-            {/* 4. SERVICES DIRECT ANCHOR LINK */}
+            {/* 4. SERVICES DIRECT ROUTE LINK */}
             <li>
-              <a 
-                href="#services" 
-                className={`${styles.navItem} ${isServicesActive ? styles.activeLink : ''}`}
-                onClick={(e) => handleNavAnchor(e, '#services')}
+              <NavLink 
+                to="/services" 
+                className={({ isActive }) => `${styles.navItem} ${isActive ? styles.activeLink : ''}`}
+                onClick={closeAll}
               >
                 Services
-              </a>
+              </NavLink>
             </li>
 
             {/* 5. CONTACT US CTA BUTTON */}
             <li>
-              <a 
-                href="#contact" 
+              <NavLink 
+                to="/contact" 
                 className={styles.navcta} 
-                onClick={(e) => handleNavAnchor(e, '#contact')}
+                onClick={closeAll}
               >
                 Contact Us
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
