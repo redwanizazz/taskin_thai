@@ -8,6 +8,13 @@ import {
   PRODUCT_SLIDE_INTERVAL
 } from '../../data/products';
 
+const HERO_FEATURE_SLUG = 'bawang_holland';
+
+const getCategoryLabel = (catId) => {
+  const match = productCategorySubdivisions.find((c) => c.id === catId);
+  return match ? match.label : catId;
+};
+
 function ProductCard({ category, index }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const { openLightbox } = useLightbox();
@@ -34,7 +41,10 @@ function ProductCard({ category, index }) {
   }, [images.length]);
 
   const handleClick = () => {
-    openLightbox(images[activeIndex], `${category.label} — Reference Price: ${category.price} (Sample pricing · Confirm at enquiry)`);
+    openLightbox(
+      images[activeIndex], 
+      `${category.label} — ${getCategoryLabel(category.category)}`
+    );
   };
 
   return (
@@ -42,7 +52,7 @@ function ProductCard({ category, index }) {
       className={`${styles.prodCard} reveal delay-${(index % 5) + 1}`} 
       role="button"
       tabIndex={0}
-      aria-label={`View ${category.label} in lightbox. Reference price: ${category.price} (Sample placeholder pricing)`}
+      aria-label={`View ${category.label} photo gallery (${getCategoryLabel(category.category)})`}
       onClick={handleClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -56,7 +66,7 @@ function ProductCard({ category, index }) {
           <img 
             key={i} 
             src={src} 
-            alt={`${category.label} - produce photo ${i + 1}`} 
+            alt={`${category.label} produce photo ${i + 1}`} 
             className={i === activeIndex ? styles.active : ''} 
             loading="lazy"
           />
@@ -71,27 +81,15 @@ function ProductCard({ category, index }) {
       </div>
 
       <div className={styles.prodLabel}>
-        <div className={styles.prodTitleRow}>
-          <h3>{category.label}</h3>
+        <div className={styles.prodMetaRow}>
+          <span className={styles.cardCategory}>{getCategoryLabel(category.category)}</span>
+          {images.length > 1 && (
+            <span className={styles.photoCountBadge}>{images.length} photos</span>
+          )}
         </div>
 
-        {/* Reference Price Badge Unit */}
-        <div className={styles.pricePill}>
-          <div className={styles.priceHeaderRow}>
-            <div className={styles.disclaimerGroup}>
-              <span className={styles.priceDisclaimerDot} aria-hidden="true" />
-              <span className={styles.priceDisclaimerText}>Reference Unit Price</span>
-            </div>
-            <span className={styles.sampleBadge}>Sample</span>
-          </div>
-
-          <div className={styles.priceValueRow}>
-            <span className={styles.priceValue}>{category.price}</span>
-          </div>
-
-          <div className={styles.priceFooterRow}>
-            <span className={styles.priceDisclaimerSub}>Confirm real-time rate at enquiry</span>
-          </div>
+        <div className={styles.prodTitleRow}>
+          <h3>{category.label}</h3>
         </div>
       </div>
     </div>
@@ -100,6 +98,7 @@ function ProductCard({ category, index }) {
 
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const { openLightbox } = useLightbox();
 
   useEffect(() => {
     // 1. Check URL parameters on mount
@@ -108,17 +107,6 @@ const Products = () => {
     if (catParam && productCategorySubdivisions.some((c) => c.id === catParam)) {
       setActiveCategory(catParam);
     }
-
-    // 2. Listen to custom event when "View Product" is clicked from FeaturedProducts
-    const handleCategoryFilter = (e) => {
-      const targetCategory = e.detail;
-      if (targetCategory && productCategorySubdivisions.some((c) => c.id === targetCategory)) {
-        setActiveCategory(targetCategory);
-      }
-    };
-
-    window.addEventListener('filter-product-category', handleCategoryFilter);
-    return () => window.removeEventListener('filter-product-category', handleCategoryFilter);
   }, []);
 
   const filteredProducts = activeCategory === 'all'
@@ -130,6 +118,16 @@ const Products = () => {
     return productCategories.filter((item) => item.category === catId).length;
   };
 
+  const heroProduct = productCategories.find((p) => p.slug === HERO_FEATURE_SLUG);
+
+  const handleHeroFilter = (catId) => {
+    setActiveCategory(catId);
+    const filterEl = document.getElementById('products-filter-bar');
+    if (filterEl) {
+      filterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
   return (
     <section id="products" className={`${styles.products} section`}>
       <div className={styles.container}>
@@ -138,8 +136,63 @@ const Products = () => {
           <p>We source directly from premium producers to ensure top-tier quality and consistent supply for every category.</p>
         </div>
 
-        {/* Category Filter Pills & Counter */}
-        <div className={styles.filterSection}>
+        {/* Part 1: Hero Feature Area (Large photo-forward card style; placeholder for rotation) */}
+        {heroProduct && (
+          <div className={`${styles.heroFeature} reveal`}>
+            <div className={styles.heroCard}>
+              <div className={styles.heroImgWrap}>
+                <img 
+                  src={`${PRODUCTS_BASE}/${heroProduct.slug}/${heroProduct.images[0]}`} 
+                  alt={`${heroProduct.label} fresh wholesale produce`} 
+                  loading="lazy" 
+                />
+                <div className={styles.heroImgOverlay} />
+              </div>
+
+              <div className={styles.heroBody}>
+                <div className={styles.heroMeta}>
+                  <span className={styles.heroCategoryTag}>{getCategoryLabel(heroProduct.category)}</span>
+                  <span className={styles.heroSpotlight}>Spotlight Produce</span>
+                </div>
+
+                <h3 className={styles.heroTitle}>{heroProduct.label}</h3>
+                <p className={styles.heroDesc}>{heroProduct.description}</p>
+
+                {heroProduct.tags && heroProduct.tags.length > 0 && (
+                  <div className={styles.heroTags}>
+                    {heroProduct.tags.map((tag) => (
+                      <span key={tag} className={styles.heroTagPill}>{tag}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className={styles.heroActionRow}>
+                  <button
+                    type="button"
+                    className={styles.heroBtn}
+                    onClick={() => handleHeroFilter(heroProduct.category)}
+                    aria-label={`Explore ${getCategoryLabel(heroProduct.category)} in catalogue below`}
+                  >
+                    <span>Explore {getCategoryLabel(heroProduct.category)}</span>
+                    <span className={styles.arrow} aria-hidden="true">↓</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={styles.heroLightboxBtn}
+                    onClick={() => openLightbox(`${PRODUCTS_BASE}/${heroProduct.slug}/${heroProduct.images[0]}`, `${heroProduct.label} — ${getCategoryLabel(heroProduct.category)}`)}
+                    aria-label={`View full-size photo of ${heroProduct.label}`}
+                  >
+                    <span>View Full Size</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Part 2: Category Filter Pills & Counter */}
+        <div id="products-filter-bar" className={styles.filterSection}>
           <div className={styles.filterBar} role="tablist" aria-label="Produce Categories">
             {productCategorySubdivisions.map((cat) => {
               const isActive = activeCategory === cat.id;

@@ -4,13 +4,11 @@ import WaveDivider from '../../components/WaveDivider/WaveDivider.jsx';
 
 // Lazy-load below-the-fold sections for optimal initial bundle performance
 const About = lazy(() => import('../../components/About/About.jsx'));
-const Welcome = lazy(() => import('../../components/Welcome/Welcome.jsx'));
 const MissionVision = lazy(() => import('../../components/MissionVision/MissionVision.jsx'));
 const Directors = lazy(() => import('../../components/Directors/Directors.jsx'));
 const CompanyInfo = lazy(() => import('../../components/CompanyInfo/CompanyInfo.jsx'));
 const Team = lazy(() => import('../../components/Team/Team.jsx'));
 const Facilities = lazy(() => import('../../components/Facilities/Facilities.jsx'));
-const FeaturedProducts = lazy(() => import('../../components/FeaturedProducts/FeaturedProducts.jsx'));
 const Products = lazy(() => import('../../components/Products/Products.jsx'));
 const Services = lazy(() => import('../../components/Services/Services.jsx'));
 const Contact = lazy(() => import('../../components/Contact/Contact.jsx'));
@@ -24,7 +22,11 @@ const Home = () => {
 
       <Suspense fallback={null}>
         <About />
-        <Welcome />
+      </Suspense>
+
+      <WaveDivider fill="#2C3419" bg="#ffffff" />
+
+      <Suspense fallback={null}>
         <MissionVision />
       </Suspense>
 
@@ -35,7 +37,6 @@ const Home = () => {
         <CompanyInfo />
         <Team />
         <Facilities />
-        <FeaturedProducts />
         <Products />
         <Services />
       </Suspense>

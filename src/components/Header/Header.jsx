@@ -11,24 +11,17 @@ const ABOUT_ITEMS = [
   { label: 'Facilities', hash: '#facilities' },
 ];
 
-const PRODUCT_ITEMS = [
-  { label: 'Produce Showcase', hash: '#welcome' },
-  { label: 'Full Catalogue', hash: '#products' },
-];
-
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // 'about' | 'products' | null
+  const [openDropdown, setOpenDropdown] = useState(null); // 'about' | null
   const [activeSection, setActiveSection] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const aboutTriggerRef = useRef(null);
-  const productsTriggerRef = useRef(null);
   const aboutMenuRef = useRef(null);
-  const productsMenuRef = useRef(null);
   const headerRef = useRef(null);
   const hoverTimeoutRef = useRef(null);
 
@@ -50,7 +43,7 @@ const Header = () => {
     }
 
     const sectionIds = [
-      'about', 'welcome', 'mv', 'directors', 
+      'about', 'mv', 'directors', 
       'company', 'team', 'facilities', 'products', 
       'services', 'contact'
     ];
@@ -183,9 +176,7 @@ const Header = () => {
     'about', 'mv', 'directors', 'company', 'team', 'facilities'
   ].includes(activeSection);
 
-  const isProductsActive = location.pathname === '/' && [
-    'welcome', 'products'
-  ].includes(activeSection);
+  const isProductsActive = location.pathname === '/' && activeSection === 'products';
 
   const isServicesActive = location.pathname === '/' && activeSection === 'services';
   const isWholesaleActive = location.pathname === '/wholesale';
@@ -257,44 +248,15 @@ const Header = () => {
               </div>
             </li>
 
-            {/* 2. PRODUCTS DROPDOWN */}
-            <li 
-              className={`${styles.dropdownParent} ${openDropdown === 'products' ? styles.dropdownOpen : ''}`}
-              onMouseEnter={() => handleMouseEnter('products')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button
-                ref={productsTriggerRef}
-                className={`${styles.navTrigger} ${isProductsActive ? styles.activeLink : ''}`}
-                onClick={() => handleDropdownToggle('products')}
-                onKeyDown={(e) => handleTriggerKeyDown(e, 'products', productsMenuRef)}
-                aria-haspopup="true"
-                aria-expanded={openDropdown === 'products'}
+            {/* 2. PRODUCTS DIRECT ANCHOR LINK */}
+            <li>
+              <a 
+                href="#products" 
+                className={`${styles.navItem} ${isProductsActive ? styles.activeLink : ''}`}
+                onClick={(e) => handleNavAnchor(e, '#products')}
               >
-                <span>Products</span>
-                <svg className={`${styles.chevron} ${openDropdown === 'products' ? styles.chevronUp : ''}`} width="10" height="6" viewBox="0 0 10 6" fill="none">
-                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-
-              <div 
-                ref={productsMenuRef} 
-                className={`${styles.dropdownMenu} ${openDropdown === 'products' ? styles.mobileDropdownOpen : ''}`}
-                role="menu"
-              >
-                {PRODUCT_ITEMS.map((item, idx) => (
-                  <a
-                    key={item.hash}
-                    href={item.hash}
-                    role="menuitem"
-                    className={`${styles.dropdownItem} ${activeSection === item.hash.replace('#', '') ? styles.dropdownItemActive : ''}`}
-                    onClick={(e) => handleNavAnchor(e, item.hash)}
-                    onKeyDown={(e) => handleItemKeyDown(e, 'products', idx, PRODUCT_ITEMS.length, productsTriggerRef, productsMenuRef)}
-                  >
-                    <span>{item.label}</span>
-                  </a>
-                ))}
-              </div>
+                Products
+              </a>
             </li>
 
             {/* 3. WHOLESALE DIRECT ROUTE LINK */}
