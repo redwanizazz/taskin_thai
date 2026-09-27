@@ -101,6 +101,26 @@ function ProductCard({ category, index }) {
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
+  useEffect(() => {
+    // 1. Check URL parameters on mount
+    const params = new URLSearchParams(window.location.search);
+    const catParam = params.get('category');
+    if (catParam && productCategorySubdivisions.some((c) => c.id === catParam)) {
+      setActiveCategory(catParam);
+    }
+
+    // 2. Listen to custom event when "View Product" is clicked from FeaturedProducts
+    const handleCategoryFilter = (e) => {
+      const targetCategory = e.detail;
+      if (targetCategory && productCategorySubdivisions.some((c) => c.id === targetCategory)) {
+        setActiveCategory(targetCategory);
+      }
+    };
+
+    window.addEventListener('filter-product-category', handleCategoryFilter);
+    return () => window.removeEventListener('filter-product-category', handleCategoryFilter);
+  }, []);
+
   const filteredProducts = activeCategory === 'all'
     ? productCategories
     : productCategories.filter((item) => item.category === activeCategory);

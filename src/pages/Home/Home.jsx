@@ -10,6 +10,7 @@ const Directors = lazy(() => import('../../components/Directors/Directors.jsx'))
 const CompanyInfo = lazy(() => import('../../components/CompanyInfo/CompanyInfo.jsx'));
 const Team = lazy(() => import('../../components/Team/Team.jsx'));
 const Facilities = lazy(() => import('../../components/Facilities/Facilities.jsx'));
+const FeaturedProducts = lazy(() => import('../../components/FeaturedProducts/FeaturedProducts.jsx'));
 const Products = lazy(() => import('../../components/Products/Products.jsx'));
 const Services = lazy(() => import('../../components/Services/Services.jsx'));
 const Contact = lazy(() => import('../../components/Contact/Contact.jsx'));
@@ -34,6 +35,7 @@ const Home = () => {
         <CompanyInfo />
         <Team />
         <Facilities />
+        <FeaturedProducts />
         <Products />
         <Services />
       </Suspense>
