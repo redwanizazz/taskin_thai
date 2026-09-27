@@ -11,10 +11,10 @@ const Home = () => {
     <main>
       <Hero />
 
-      <WaveDivider fill="#ffffff" bg="#faf8f2" />
+      <WaveDivider fill="#ffffff" bg="#12160d" />
 
       <Suspense fallback={null}>
-        <Services />
+        <Services isTeaser={true} />
       </Suspense>
 
       <WaveDivider fill="#3F4B27" bg="#ffffff" />

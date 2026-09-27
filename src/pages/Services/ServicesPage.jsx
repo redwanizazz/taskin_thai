@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { useRouteMetaTags } from '../../hooks/useRouteMetaTags';
+import WaveDivider from '../../components/WaveDivider/WaveDivider.jsx';
 
 const Services = lazy(() => import('../../components/Services/Services.jsx'));
 
@@ -12,10 +13,12 @@ const ServicesPage = () => {
   });
 
   return (
-    <main>
+    <main style={{ paddingTop: '80px' }}>
       <Suspense fallback={null}>
-        <Services />
+        <Services isTeaser={false} />
       </Suspense>
+
+      <WaveDivider fill="#2C3419" variant="up" bg="#ffffff" />
     </main>
   );
 };
