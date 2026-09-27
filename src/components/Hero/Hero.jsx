@@ -13,6 +13,10 @@ const SLIDES = [
     headlineLine2: 'Delivered across Malaysia.',
     description:
       'Premier commercial distribution of farm-fresh wholesale vegetables and premium imported onions, ensuring consistent supply and dependable quality for partners nationwide.',
+    isPortraitWithBackdrop: false,
+    objectPosition: 'center 48%',
+    baseClass: styles.baseCoverLandscape,
+    animClass: styles.kenBurnsLandscape,
   },
   {
     id: 'slide-chili',
@@ -23,6 +27,11 @@ const SLIDES = [
     headlineLine2: 'Harvested for consistency.',
     description:
       'Direct sourcing of high-demand chilies and culinary staples for wholesale wet markets, commercial kitchens, and supermarket chains across Klang Valley and Selangor.',
+    isPortraitWithBackdrop: true,
+    objectPosition: '78% center',
+    baseClass: styles.basePortraitForeground,
+    animClass: styles.kenBurnsPortrait,
+    backdropBrightness: 0.44,
   },
   {
     id: 'slide-brokoli',
@@ -33,6 +42,11 @@ const SLIDES = [
     headlineLine2: 'Uncompromised freshness.',
     description:
       'Rigorous quality grading and careful handling preserve natural texture, deep green color, and nutritional value from vetted growers to receiving docks.',
+    isPortraitWithBackdrop: true,
+    objectPosition: '78% center',
+    baseClass: styles.basePortraitForeground,
+    animClass: styles.kenBurnsPortrait,
+    backdropBrightness: 0.38,
   },
   {
     id: 'slide-facility',
@@ -43,8 +57,13 @@ const SLIDES = [
     headlineLine2: 'Built for peak freshness.',
     description:
       'Round-the-clock cold storage infrastructure and managed warehousing in Batu Caves protect produce quality from arrival through scheduled commercial dispatch.',
+    isPortraitWithBackdrop: false,
+    objectPosition: 'center 56%',
+    baseClass: styles.baseCoverFacility,
+    animClass: styles.kenBurnsFacility,
   },
 ];
+
 
 const AUTO_ADVANCE_MS = 5500;
 const INACTIVITY_RESUME_MS = 8000;
@@ -146,10 +165,42 @@ const Hero = () => {
       aria-roledescription="carousel"
       aria-label="Taskin Thai Produce & Logistics Highlights"
     >
-      {/* Background Slides with Ken Burns Effect */}
+      {/* Background Slides with Ken Burns Effect & Blurred Fill for Portrait */}
       <div className={styles.slidesBgWrapper} aria-hidden="true">
         {SLIDES.map((slide, idx) => {
           const isActive = idx === activeIndex;
+          const animClass = isActive && !prefersReducedMotion ? slide.animClass : '';
+          const backdropAnim = isActive && !prefersReducedMotion ? styles.kenBurnsBackdrop : '';
+
+          if (slide.isPortraitWithBackdrop) {
+            return (
+              <div
+                key={slide.id}
+                className={`${styles.slideBg} ${isActive ? styles.slideBgActive : ''}`}
+              >
+                {/* Blurred full-bleed backdrop fill */}
+                <div className={styles.blurredBackdropWrapper}>
+                  <img
+                    src={slide.image}
+                    alt=""
+                    className={`${styles.blurredBackdropImage} ${backdropAnim}`}
+                    style={{
+                      filter: `blur(42px) brightness(${slide.backdropBrightness || 0.42}) saturate(1.3)`,
+                    }}
+                  />
+                </div>
+
+                {/* Sharp, uncropped foreground subject */}
+                <img
+                  src={slide.image}
+                  alt=""
+                  className={`${styles.portraitForeground} ${slide.baseClass} ${animClass}`}
+                  style={{ objectPosition: slide.objectPosition }}
+                />
+              </div>
+            );
+          }
+
           return (
             <div
               key={slide.id}
@@ -158,7 +209,8 @@ const Hero = () => {
               <img
                 src={slide.image}
                 alt=""
-                className={`${styles.bgImage} ${isActive && !prefersReducedMotion ? styles.kenBurns : ''}`}
+                className={`${styles.bgImageCover} ${slide.baseClass} ${animClass}`}
+                style={{ objectPosition: slide.objectPosition }}
               />
             </div>
           );

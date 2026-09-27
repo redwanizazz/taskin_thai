@@ -35,27 +35,114 @@
   z-index: 1;
 }
 
-.bgImage {
+/* ===== LANDSCAPE SLIDES: DIRECT COVER WITH GENTLE PAN ===== */
+.bgImageCover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transform: scale(1) translate(0, 0);
   transition: transform 0.8s ease-out;
   will-change: transform;
 }
 
-/* Ken Burns slow continuous pan and zoom on active slide */
-.kenBurns {
-  animation: kenBurnsZoom 7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.baseCoverLandscape {
+  transform: scale(1.05) translate(0, 0);
 }
 
-@keyframes kenBurnsZoom {
+.kenBurnsLandscape {
+  animation: kenBurnsLandscape 7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes kenBurnsLandscape {
+  0% {
+    transform: scale(1.05) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.11) translate(-1%, 0.6%);
+  }
+}
+
+.baseCoverFacility {
+  transform: scale(1.02) translate(0, 0);
+}
+
+.kenBurnsFacility {
+  animation: kenBurnsFacility 7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes kenBurnsFacility {
+  0% {
+    transform: scale(1.02) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.07) translate(-0.8%, 0.5%);
+  }
+}
+
+/* ===== PORTRAIT SLIDES: BLURRED FULL-BLEED BACKDROP + SHARP FOREGROUND ===== */
+.blurredBackdropWrapper {
+  position: absolute;
+  inset: -50px;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blurredBackdropImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.16);
+  will-change: transform;
+}
+
+.kenBurnsBackdrop {
+  animation: kenBurnsBackdrop 8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes kenBurnsBackdrop {
+  0% {
+    transform: scale(1.16) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.23) translate(-1%, 0.7%);
+  }
+}
+
+/* Sharp, uncropped portrait photo positioned in the visual half */
+.portraitForeground {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 78% center;
+  /* Soft feather mask so photo edges blend seamlessly into the blurred backdrop */
+  mask-image: 
+    linear-gradient(to right, transparent 0%, black 14%, black 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: 
+    linear-gradient(to right, transparent 0%, black 14%, black 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  transition: transform 0.8s ease-out;
+  will-change: transform;
+}
+
+.basePortraitForeground {
+  transform: scale(1) translate(0, 0);
+}
+
+.kenBurnsPortrait {
+  animation: kenBurnsPortrait 7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes kenBurnsPortrait {
   0% {
     transform: scale(1) translate(0, 0);
   }
   100% {
-    transform: scale(1.08) translate(-1.2%, 0.8%);
+    transform: scale(1.035) translate(-0.6%, 0.4%);
   }
 }
 
@@ -457,11 +544,23 @@
     bottom: 36px;
     right: 32px;
   }
+
+  .portraitForeground {
+    object-position: 74% center;
+  }
 }
 
 @media (max-width: 640px) {
   .container {
     padding: 85px 20px 40px;
+  }
+
+  .portraitForeground {
+    object-position: center 25%;
+    mask-image: 
+      linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: 
+      linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
   }
 
   .heroTitle {
@@ -515,7 +614,10 @@
 
 /* ===== PREFERS-REDUCED-MOTION SUPPORT ===== */
 @media (prefers-reduced-motion: reduce) {
-  .kenBurns {
+  .kenBurnsLandscape,
+  .kenBurnsPortrait,
+  .kenBurnsBackdrop,
+  .kenBurnsFacility {
     animation: none !important;
     transform: none !important;
   }
